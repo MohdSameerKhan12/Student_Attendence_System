@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="topbar"><div><p class="eyebrow">MANAGEMENT</p><h1>Students</h1><p class="muted">Add, search and manage student details.</p></div></header>
+<section class="panel"><h2>Add New Student</h2>
+<form method="post" class="form-grid">
+<div><label>Roll Number</label><input name="roll_no" placeholder="e.g.  CS001" required></div>
+<div><label>Student Name</label><input name="name" placeholder="Full name" required></div>
+<div><label>Course / Branch</label><input name="course" placeholder="e.g. B.Tech CSE" required></div>
+<div><label>Semester</label><input name="semester" placeholder="e.g. 5th" required></div>
+<div class="form-action"><button class="btn">+ Add Student</button></div>
+</form></section>
+<section class="panel"><div class="panel-head"><div><h2>Student List</h2><p class="muted">{{ students|length }} student(s) shown</p></div>
+<form method="get" class="search"><input name="q" value="{{ q }}" placeholder="Search name or roll no."><button class="btn small">Search</button></form></div>
+{% if students %}<div class="table-wrap"><table><thead><tr><th>Roll No.</th><th>Name</th><th>Course</th><th>Semester</th><th>Action</th></tr></thead><tbody>
+{% for s in students %}<tr><td>{{ s.roll_no }}</td><td>{{ s.name }}</td><td>{{ s.course }}</td><td>{{ s.semester }}</td><td><form method="post" action="{{ url_for('delete_student', student_id=s.id) }}" onsubmit="return confirm('Delete this student and their attendance records?')"><button class="btn danger small">Delete</button></form></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty">No students found. Add your first student above.</div>{% endif %}
+</section>
+{% endblock %}

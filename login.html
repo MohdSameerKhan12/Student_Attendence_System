@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-card">
+  <div class="brand centered"><div class="brand-icon">A</div></div>
+  <h1>Welcome back</h1><p class="muted">Sign in to manage student attendance.</p>
+  <form method="post">
+    <label>Username</label><input name="username" placeholder="Enter username" required>
+    <label>Password</label><input name="password" type="password" placeholder="Enter password" required>
+    <button class="btn full">Login to dashboard</button>
+  </form>
+  <p class="hint">Demo login: <b>admin</b> / <b>admin123</b></p>
+</div>
+{% endblock %}

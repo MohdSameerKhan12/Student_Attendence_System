@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="topbar"><div><p class="eyebrow">DAILY TRACKING</p><h1>Mark Attendance</h1><p class="muted">Choose a date and mark each student's status.</p></div></header>
+<section class="panel">
+<form method="get" class="date-form"><label>Attendance Date</label><input type="date" name="att_date" value="{{ selected_date }}"><button class="btn small">Load Date</button></form>
+{% if students %}<form method="post"><input type="hidden" name="att_date" value="{{ selected_date }}">
+<div class="table-wrap"><table><thead><tr><th>Roll No.</th><th>Student Name</th><th>Course</th><th>Status</th></tr></thead><tbody>
+{% for s in students %}<tr><td>{{ s.roll_no }}</td><td>{{ s.name }}</td><td>{{ s.course }}</td><td><select name="status_{{ s.id }}"><option value="Present" {% if statuses.get(s.id, 'Present') == 'Present' %}selected{% endif %}>Present</option><option value="Absent" {% if statuses.get(s.id) == 'Absent' %}selected{% endif %}>Absent</option></select></td></tr>{% endfor %}
+</tbody></table></div><button class="btn save-btn">Save Attendance</button></form>
+{% else %}<div class="empty">No students added yet. Add students first.</div>{% endif %}
+</section>
+{% endblock %}

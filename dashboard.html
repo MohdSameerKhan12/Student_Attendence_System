@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<header class="topbar"><div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="muted">Welcome back! Here's today's attendance summary.</p></div><div class="date-pill">▣ &nbsp; {{ today }}</div></header>
+<section class="stats">
+ <div class="stat"><span class="stat-icon blue">♙</span><p>Total Students</p><strong>{{ total }}</strong><small>Registered students</small></div>
+ <div class="stat"><span class="stat-icon green">✓</span><p>Present Today</p><strong>{{ present }}</strong><small>Marked present</small></div>
+ <div class="stat"><span class="stat-icon red">×</span><p>Absent Today</p><strong>{{ absent }}</strong><small>Marked absent</small></div>
+ <div class="stat"><span class="stat-icon purple">％</span><p>Attendance Rate</p><strong>{{ percentage }}%</strong><small>Of marked attendance</small></div>
+</section>
+<section class="panel"><div class="panel-head"><div><h2>Recent Attendance</h2><p class="muted">Latest attendance entries</p></div><a class="btn small" href="{{ url_for('records') }}">View all</a></div>
+{% if recent %}<div class="table-wrap"><table><thead><tr><th>Student</th><th>Roll No.</th><th>Date</th><th>Status</th></tr></thead><tbody>
+{% for r in recent %}<tr><td>{{ r.name }}</td><td>{{ r.roll_no }}</td><td>{{ r.att_date }}</td><td><span class="status {{ r.status|lower }}">{{ r.status }}</span></td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty">No attendance records yet. Add students and mark attendance to get started.</div>{% endif %}
+</section>
+{% endblock %}
